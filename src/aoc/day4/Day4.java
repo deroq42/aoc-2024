@@ -3,6 +3,7 @@ package aoc.day4;
 import aoc.Puzzle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,25 +41,50 @@ public class Day4 implements Puzzle {
                 }
 
                 for (Direction d : Direction.values()) {
-                    if (check(lineIndex, charIndex, d)) {
+                    if (check("XMAS", lineIndex, charIndex, d)) {
                         xmasSum++;
                     }
                 }
             }
         }
 
-        System.out.println("sum: " + xmasSum);
+        System.out.println("xmas sum: " + xmasSum);
         System.out.println("Took " + (System.currentTimeMillis() - s) + "ms");
     }
 
-    private boolean check(int lineIndex, int charIndex, Direction direction) {
+    @Override
+    public void solvePartTwo() {
+        long s = System.currentTimeMillis();
+        int xmasSum = 0;
+
+        for (int lineIndex = 0; lineIndex < lines.size(); lineIndex++) {
+            String line = lines.get(lineIndex);
+            if (line == null || line.isEmpty()) {
+                continue;
+            }
+
+            for (int charIndex = 0; charIndex < line.length(); charIndex++) {
+                if (line.charAt(charIndex) != 'A') {
+                    continue;
+                }
+
+                if (check("MAS", lineIndex + 1, charIndex + 1, Direction.UP_LEFT)
+                        && check("MAS", lineIndex + 1, charIndex - 1, Direction.UP_RIGHT)) {
+                    xmasSum++;
+                }
+            }
+        }
+
+        System.out.println("x-mas sum: " + xmasSum);
+        System.out.println("Took " + (System.currentTimeMillis() - s) + "ms");
+    }
+
+    private boolean check(String searchWord, int lineIndex, int charIndex, Direction direction) {
         StringBuilder xmasBuilder = new StringBuilder();
-        xmasBuilder.append(lines.get(lineIndex).charAt(charIndex));
+        int currentLineIndex = lineIndex;
+        int currentCharIndex = charIndex;
 
-        int currentLineIndex = lineIndex + direction.getRowDelta();
-        int currentCharIndex = charIndex + direction.getColumnDelta();
-
-        while (xmasBuilder.length() < 4) {
+        while (xmasBuilder.length() < searchWord.length()) {
             if (currentLineIndex < 0 || currentLineIndex >= lines.size() ||
                     currentCharIndex < 0 || currentCharIndex >= lines.get(currentLineIndex).length()) {
                 break;
@@ -69,12 +95,7 @@ public class Day4 implements Puzzle {
             currentCharIndex += direction.getColumnDelta();
         }
 
-        return xmasBuilder.length() == 4 && "XMAS".contentEquals(xmasBuilder);
-    }
-
-    @Override
-    public void solvePartTwo() {
-
+        return xmasBuilder.length() == searchWord.length() && (searchWord.contentEquals(xmasBuilder) || searchWord.contentEquals(xmasBuilder.reverse()));
     }
 
     @Override
