@@ -1,7 +1,5 @@
 package aoc.day4;
 
-import java.util.List;
-
 public enum Direction {
 
     LEFT(0, -1),
@@ -19,10 +17,6 @@ public enum Direction {
     Direction(int rowDelta, int columnDelta) {
         this.rowDelta = rowDelta;
         this.columnDelta = columnDelta;
-    }
-
-    public static Direction[] getDiagonals() {
-        return new Direction[]{UP_RIGHT, UP_LEFT};
     }
 
     public int getRowDelta() {
