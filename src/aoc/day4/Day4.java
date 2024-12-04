@@ -72,15 +72,25 @@ public class Day4 implements Puzzle {
         int currentLineIndex = lineIndex;
         int currentCharIndex = charIndex;
 
+        int forwardIndex = 0;
+        int reverseIndex = searchWord.length() - 1;
         while (xmasBuilder.length() < searchWord.length()) { // as long as xmasBuilder does not have the length of the search word
             if (currentLineIndex < 0 || currentLineIndex >= lines.size() ||
                     currentCharIndex < 0 || currentCharIndex >= lines.get(currentLineIndex).length()) { // prevent exceptions
-                break;
+                return false;
             }
 
-            xmasBuilder.append(lines.get(currentLineIndex).charAt(currentCharIndex)); // append xmasBuilder with current char of current line
+            char currentChar = lines.get(currentLineIndex).charAt(currentCharIndex);
+            if (currentChar != searchWord.charAt(forwardIndex) && currentChar != searchWord.charAt(reverseIndex)) { // early return if mismatch
+                return false;
+            }
+
+            xmasBuilder.append(currentChar); // append xmasBuilder with current char of current line
             currentLineIndex += direction.getRowDelta(); // go to next line, depending on the direction
             currentCharIndex += direction.getColumnDelta(); // go to next char, depending on the direction
+
+            forwardIndex++;
+            reverseIndex--;
         }
 
         // returns true if xmasBuilder does have the length of the search word and the builders content
