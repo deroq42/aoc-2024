@@ -22,7 +22,7 @@ public class Day2 implements Puzzle {
 
     @Override
     public void solvePartOne() {
-        long s = System.currentTimeMillis();
+        final long s = System.currentTimeMillis();
         int safeReports = 0;
 
         for (String line : lines) {
@@ -38,7 +38,7 @@ public class Day2 implements Puzzle {
 
     @Override
     public void solvePartTwo() {
-        long s = System.currentTimeMillis();
+        final long s = System.currentTimeMillis();
         int safeReports = 0;
 
         for (String line : lines) {

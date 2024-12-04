@@ -23,7 +23,7 @@ public class Day3 implements Puzzle {
 
     @Override
     public void solvePartOne() {
-        long s = System.currentTimeMillis();
+        final long s = System.currentTimeMillis();
         long sum = calculateMultiplicationSum(true);
         System.out.println("sum: " + sum);
         System.out.println("Took " + (System.currentTimeMillis() - s) + "ms");
@@ -31,7 +31,7 @@ public class Day3 implements Puzzle {
 
     @Override
     public void solvePartTwo() {
-        long s = System.currentTimeMillis();
+        final long s = System.currentTimeMillis();
         long sum = calculateMultiplicationSum(false);
         System.out.println("sum enabled: " + sum);
         System.out.println("Took " + (System.currentTimeMillis() - s) + "ms");
@@ -57,14 +57,14 @@ public class Day3 implements Puzzle {
                 switch (mul) {
                     case "do()":
                     case "don't()":
-                        enabled = ignoreDisabled || mul.equals("do()");
+                        enabled = ignoreDisabled || mul.equals("do()"); // set enabled if do() is present or ignoreDisabled is true
                         continue;
                     default:
-                        if (!enabled) {
+                        if (!enabled) { // if mul is not enabled, continue
                             continue;
                         }
 
-                        String[] numbers = mul.split("\\(")[1].split("\\)")[0].split(",");
+                        String[] numbers = mul.split("\\(")[1].split("\\)")[0].split(","); // get numbers from mul
                         try {
                             sum += Long.parseLong(numbers[0]) * Long.parseLong(numbers[1]);
                         } catch (NumberFormatException e) {
