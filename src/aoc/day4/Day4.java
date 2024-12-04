@@ -5,10 +5,6 @@ import aoc.Puzzle;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Miles
- * @since 04.12.24
- */
 public class Day4 implements Puzzle {
 
     private final List<String> lines = new ArrayList<>();
