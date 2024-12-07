@@ -2,7 +2,6 @@ package aoc.day5;
 
 import aoc.Puzzle;
 
-
 import java.util.*;
 
 public class Day5 implements Puzzle {
